@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { Searchbar } from './Searchbar';
-import { ImageGallery } from './ImageGallery';
+import { Searchbar } from '../Searchbar/Searchbar';
+import { ImageGallery } from '../ImagenGallery/ImageGallery';
 // import { ImageGalleryItem } from './ImageGalleryItem';
 import { fetchImages } from 'services/fetchImages';
-import { Button } from './Button';
+import { Button } from '../Button/Button';
+import { Loader } from 'components/Loader/Loader';
+import { AppBox } from './App.styled';
 
 let page = 1;
 
@@ -15,10 +17,6 @@ export class App extends React.Component {
     status: `idle`,
     totalHits: 0,
   };
-  // async componentDidMount() {
-  //   fetchImages();
-  //   console.log(this.state);
-  // }
 
   submitHandler = async searchValue => {
     page = 1;
@@ -65,37 +63,38 @@ export class App extends React.Component {
     const { totalHits, status, items } = this.state;
     if (status === 'idle') {
       return (
-        <div>
+        <AppBox>
           <Searchbar onSubmit={this.submitHandler} />
-        </div>
+        </AppBox>
       );
     }
     if (status === 'pending') {
       return (
-        <div>
+        <AppBox>
           <Searchbar onSubmit={this.submitHandler} />
           <ImageGallery page={page} items={items} />
+          <Loader />
           {totalHits > 12 && <Button onClick={this.onNextPage} />}
-        </div>
+        </AppBox>
       );
     }
     if (status === 'rejected') {
       return (
-        <div>
+        <AppBox>
           <Searchbar onSubmit={this.submitHandler} />
           <span>Oops!Somthing wrong!Try later.</span>
-        </div>
+        </AppBox>
       );
     }
     if (status === 'resolved') {
       return (
-        <div>
+        <AppBox>
           <Searchbar onSubmit={this.submitHandler} />
           <ImageGallery page={page} items={items} />
           {totalHits > 12 && totalHits > items.length && (
             <Button onClick={this.onNextPage} />
           )}
-        </div>
+        </AppBox>
       );
     }
   }

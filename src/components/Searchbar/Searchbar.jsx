@@ -1,5 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  SearchbarBox,
+  SearchForm,
+  SearchFormButton,
+  SearchbarInput,
+} from './Searchbar.styled';
+import { FcSearch } from 'react-icons/fc';
 
 export class Searchbar extends React.Component {
   state = {
@@ -17,13 +24,13 @@ export class Searchbar extends React.Component {
   render() {
     const { searchValue } = this.state.searchValue;
     return (
-      <header>
-        <form onSubmit={this.handlerSubmit}>
-          <button type="submit">
-            <span>Search</span>
-          </button>
+      <SearchbarBox>
+        <SearchForm onSubmit={this.handlerSubmit}>
+          <SearchFormButton type="submit">
+            <FcSearch />
+          </SearchFormButton>
 
-          <input
+          <SearchbarInput
             name="searchValue"
             type="text"
             value={searchValue}
@@ -33,8 +40,8 @@ export class Searchbar extends React.Component {
             placeholder="Search images and photos"
             onChange={this.inputHandler}
           />
-        </form>
-      </header>
+        </SearchForm>
+      </SearchbarBox>
     );
   }
 }
