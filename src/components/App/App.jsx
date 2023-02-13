@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Searchbar } from '../Searchbar/Searchbar';
 import { ImageGallery } from '../ImagenGallery/ImageGallery';
-// import { ImageGalleryItem } from './ImageGalleryItem';
+
 import { fetchImages } from 'services/fetchImages';
 import { Button } from '../Button/Button';
 import { Loader } from 'components/Loader/Loader';
@@ -69,7 +69,7 @@ export class App extends React.Component {
     return (
       <AppBox>
         <Searchbar onSubmit={this.submitHandler} />
-        <ImageGallery page={this.state.page} items={items} />
+        <ImageGallery items={items} />
         {status === 'pending' && <Loader />}
         {status === 'rejected' && <span>Oops!Something wrong!Try later.</span>}
         {totalPages < 1 && status === 'resolved' && (
